@@ -1,19 +1,4 @@
-#!/usr/bin/env bash
-
-SE_enforcing=`getenforce` || true
-
-sudo setenforce Permissive || true
-
-# Enable any host to connect on X Org
+open -a XQuartz
 xhost +
+./build/otclient
 
-docker run -ti --rm \
-       -e DISPLAY \
-       -v /tmp/.X11-unix:/tmp/.X11-unix \
-       --device /dev/dri \
-       otclient 
-
-# Enable any host to connect on X Org
-xhost -
-
-sudo setenforce $SE_enforcing || true
